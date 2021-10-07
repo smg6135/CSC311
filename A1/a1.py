@@ -3,7 +3,7 @@ import numpy.random as rnd
 
 # Read the data
 # Download "data.csv" from the course website
-data = np.genfromtxt(r'C:\Users\big_doggo_best\Desktop\2021\CSC311\data.csv', delimiter=',', skip_header=1)
+data = np.genfromtxt(r'C:\Users\big_doggo_best\Desktop\2021\CSC311\A1\data.csv', delimiter=',', skip_header=1)
 
 # Display the *shape* of the data matrix
 print(data.shape)
@@ -66,12 +66,12 @@ print(valid.shape)
 print('\nQuestion 1(h):')
 
 # TODO
-train_x = train[:, 6:] # TODO
-train_t = train[:, 1:6] # TODO
-valid_x = valid[:, 6:] # TODO
-valid_t = valid[:, 1:6] # TODO
-test_x = test[:, 6:] # TODO
-test_t = test[:, 1:6] # TODO
+train_x = train[:, 1:6] # TODO
+train_t = train[:, 6:] # TODO
+valid_x = valid[:, 1:6] # TODO
+valid_t = valid[:, 6:] # TODO
+test_x = test[:, 1:6] # TODO
+test_t = test[:, 6:] # TODO
 
 print(train_x[:2]) # TODO
 print(train_t[:2]) # TODO
@@ -81,6 +81,8 @@ print(test_x[:2]) # TODO
 print(test_t[:2]) # TODO
 
 print('\nQuestion 1(i):')
+d_mean = np.mean(data, axis=0)
+d_std = np.std(data, axis=0)
 x_mean = np.mean(train_x, axis=0) # TODO
 x_std = np.std(train_x, axis=0) #TODO
 print(x_mean, x_std)
@@ -101,8 +103,9 @@ print(tmp_a - tmp_b)
 
 print('\nQuestion 1(m):')
 norm_train_x = (train_x - x_mean)/x_std# TODO
+print(norm_train_x[:2, :])
 print(np.mean(norm_train_x, axis=0))
-print(norm_train_x[:2, 0])
+print(np.std(norm_train_x, axis=0))
 
 print('\nQuestion 1(n):')
 import time
@@ -129,13 +132,16 @@ print("Vectorized time: %.50f" %(vec_after - vec_before))
 print('\n\nQuestion 2')
 print('----------')
 print('\nQuestion 2(a):')
-print(valid_x)
 v = valid_x[0] # should be np.array([ 19.5    , 306.5947 ,   9.     ,  24.98034, 121.53951])
 
-distances = np.square(train_x) - np.square(v) # TODO
+temp = train_x - v
+print(temp[:2, :])
+temp = temp * temp
+print(temp[:2, :])
+temp = np.sum(temp, axis=1)
+distances = np.sqrt(temp)
+print(distances[:2])
 n = np.argmin(distances, axis=0) # TODO
-print(distances[:, 0])
-print(train_x.shape)
 print(distances.shape)
 print(n)
 
